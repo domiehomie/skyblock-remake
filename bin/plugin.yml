@@ -1,0 +1,29 @@
+main: live.mufin.skyblock.Main
+name: Skyblock
+author: mufin
+version: BETA
+api-version: 1.13
+website: mufin.live
+prefix: SB
+
+softdepend: [BetterConfig]
+
+commands:
+  skyblock:
+    description: Skyblock's main command.
+    aliases: sb
+    usage: /<command> [reload]
+  stats:
+    description: Displays your own, or someone else's stats.
+    usage: /<command> [player]
+  coins:
+    description: Displays your own, or someone else's balance.
+    aliases: balance
+    usage: /<command> [player]
+  setcoins:
+    description: Set the coins of a player.
+    aliases: setbalance
+    usage: /<command> <player>
+  setstat:
+    description: Set a specific statistic of a player.
+    usage: /<command> <player> <stat> <value>
