@@ -1,5 +1,3 @@
-
-
 # Hypixel Skyblock Remake
 
 A project where I, mufin, am trying to recrate Hypixel Skyblock in Spigot. There is currently no download available, however you can import the project into your IDE of choice, along with adding the spigot jar as a dependency to export it.
