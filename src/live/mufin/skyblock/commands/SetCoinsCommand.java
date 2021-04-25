@@ -30,8 +30,9 @@ public class SetCoinsCommand implements CommandExecutor{
 				Long coins = Long.parseLong(args[1]);
 				plugin.data.getConfig().set(target.getUniqueId().toString() + ".skyblock.coins" , coins);
 				plugin.utils.sendFormattedMessage(player, "&7Set coins of &a" + target.getDisplayName() + "&7 to &6" + coins + "&7.");
-			} catch (NumberFormatException e) {
-				plugin.utils.sendFormattedMessage(player, "&cPlease input a valid number.");
+				plugin.board.createBoard(target);
+			} catch (NumberFormatException | NullPointerException e) {
+				plugin.utils.sendFormattedMessage(player, "&cPlease input a valid number and player.");
 			}
 			
 			

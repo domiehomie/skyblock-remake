@@ -27,3 +27,9 @@ commands:
   setstat:
     description: Set a specific statistic of a player.
     usage: /<command> <player> <stat> <value>
+  scoreboardreload:
+    description: Reloads a players' scoreboard.
+    usage: /<command> <player>
+    aliases: [rlsb, sbrl, reloadscoreboard]
+    
+    

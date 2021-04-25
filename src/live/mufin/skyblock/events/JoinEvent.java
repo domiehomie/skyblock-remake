@@ -42,6 +42,7 @@ public class JoinEvent implements Listener {
 		
 		if(!plugin.data.getConfig().contains(uuid.toString() + ".skyblock")) {
 			plugin.data.getConfig().set(uuid.toString() + ".skyblock.coins", 0L);
+			plugin.data.getConfig().set(uuid.toString() + ".skyblock.bits", 0);
 		}
 		
 		for (Stat stat : Stat.values()) {
