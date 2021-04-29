@@ -24,7 +24,8 @@ public class SkyblockCommand implements CommandExecutor {
 				if(args[0].equalsIgnoreCase("reload")) {
 					plugin.reloadConfig();
 					plugin.data.reloadConfig();
-					plugin.utils.sendFormattedMessage(player, "&7Reloaded &aconfig.yml&7 and &aplayerdata.yml&7.");
+					plugin.items.reloadConfig();
+					plugin.utils.sendFormattedMessage(player, "&7Reloaded &aconfig.yml&7, &aitems.yml&7 and &aplayerdata.yml&7.");
 				}
 			}else {
 				plugin.utils.sendFormattedMessage(player, "&8========================================");

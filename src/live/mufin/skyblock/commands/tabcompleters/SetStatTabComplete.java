@@ -1,4 +1,4 @@
-package live.mufin.skyblock.commands;
+package live.mufin.skyblock.commands.tabcompleters;
 
 import java.util.ArrayList;
 import java.util.List;

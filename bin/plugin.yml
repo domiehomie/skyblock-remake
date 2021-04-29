@@ -6,8 +6,6 @@ api-version: 1.13
 website: mufin.live
 prefix: SB
 
-softdepend: [BetterConfig]
-
 commands:
   skyblock:
     description: Skyblock's main command.
@@ -23,7 +21,7 @@ commands:
   setcoins:
     description: Set the coins of a player.
     aliases: setbalance
-    usage: /<command> <player>
+    usage: /<command> <player> [amount]
   setstat:
     description: Set a specific statistic of a player.
     usage: /<command> <player> <stat> <value>
@@ -31,5 +29,15 @@ commands:
     description: Reloads a players' scoreboard.
     usage: /<command> <player>
     aliases: [rlsb, sbrl, reloadscoreboard]
-    
+  setlogger:
+    description: Allows you to enable and disable certain Skyblock logging features.
+    usage: /<command> <logtype> <true|false>
+    aliases: sl
+  item:
+    description: Gives you a Skyblock item from the items.yml file.
+    usage: /<command> <item> <amount> [player]
+  logger:
+    description: Shows you all the logging features, allowing you to enable/disable them by clicking.
+    usage: /<command>
+    aliases: log
     
