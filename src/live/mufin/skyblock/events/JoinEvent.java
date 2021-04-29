@@ -32,6 +32,7 @@ public class JoinEvent implements Listener {
 		UUID uuid = player.getUniqueId();
 		World world = player.getWorld();
 
+		
 		plugin.getLogger().info("Player " + player.getName() + " joined. Creating playerdata.");
 		// Creating player in playerdata.yml
 
@@ -71,8 +72,13 @@ public class JoinEvent implements Listener {
 		if (!(player.getInventory().contains(skyblockmenu))) {
 			player.getInventory().setItem(8, skyblockmenu);
 		}
-
+		
 		plugin.data.saveConfig();
+		
+		if(plugin.data.getConfig().getInt(player.getUniqueId().toString() + ".skyblock.flightduration") != 0) {
+			player.setAllowFlight(true);
+			player.setFlying(true);
+		}
 	}
 
 }

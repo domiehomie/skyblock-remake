@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import live.mufin.skyblock.Main;
@@ -25,6 +26,12 @@ public class SkyblockDeathEvents implements Listener{
 		if(l.getY() <= 1) {
 			plugin.death.setDeath(p, DeathCause.VOID);
 		}
+	}
+	
+	@EventHandler
+	public void onDeath(PlayerDeathEvent event) {
+		Player p = event.getEntity();
+		plugin.death.setDeath(p, DeathCause.OTHER);
 	}
 	
 	

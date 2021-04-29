@@ -27,6 +27,19 @@ public class Utils {
 	}
 	
 	
+	public String formatSeconds(int timeInSeconds)
+	{
+	    int secondsLeft = timeInSeconds % 3600 % 60;
+	    int minutes = (int) Math.floor(timeInSeconds % 3600 / 60);
+	    int hours = (int) Math.floor(timeInSeconds / 3600);
+
+	    String HH = ((hours       < 10) ? "0" : "") + hours;
+	    String MM = ((minutes     < 10) ? "0" : "") + minutes;
+	    String SS = ((secondsLeft < 10) ? "0" : "") + secondsLeft;
+
+	    return HH + ":" + MM + ":" + SS;
+	}   
+	
 	// Sending logger message (needed for command)
 	public void sendLoggerMessage(Player player) {
 		List<String> features = new ArrayList<String>();

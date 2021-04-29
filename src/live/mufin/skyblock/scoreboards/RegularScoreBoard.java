@@ -1,8 +1,10 @@
 package live.mufin.skyblock.scoreboards;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -38,7 +40,7 @@ public class RegularScoreBoard implements Listener {
 		DateFormat tform = new SimpleDateFormat("HH:mm");
 		Date date = new Date();
 		
-		
+		NumberFormat format = NumberFormat.getInstance(Locale.US);
 		
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
 		Scoreboard board = manager.getNewScoreboard();
@@ -56,9 +58,13 @@ public class RegularScoreBoard implements Listener {
 		score5.setScore(8);
 		Score score6 = obj.getScore(ChatColor.RESET + " " + ChatColor.RESET + " "  + ChatColor.RESET + " " );
 		score6.setScore(7);
-		Score score7 = obj.getScore("Flight Duration: " + ChatColor.GREEN + "∞");
-		score7.setScore(6);
-		Score score8 = obj.getScore("Coins: " + ChatColor.GOLD + plugin.data.getConfig().getLong(player.getUniqueId() + ".skyblock.coins"));
+		if(plugin.data.getConfig().getInt(player.getUniqueId().toString() + ".skyblock.flightduration") != 0) {
+			int time = plugin.data.getConfig().getInt(player.getUniqueId().toString() + ".skyblock.flightduration");
+			
+			Score score7 = obj.getScore("Flight Duration: " + ChatColor.GREEN + plugin.utils.formatSeconds(time));
+			score7.setScore(6);
+		}
+		Score score8 = obj.getScore("Coins: " + ChatColor.GOLD + format.format(plugin.data.getConfig().getLong(player.getUniqueId() + ".skyblock.coins")));
 		score8.setScore(5);
 		Score score9 = obj.getScore("Bits: " + ChatColor.AQUA + plugin.data.getConfig().getInt(player.getUniqueId() + ".skyblock.bits"));
 		score9.setScore(4);
