@@ -25,9 +25,12 @@ public class SetFlightCommand implements CommandExecutor {
 				try {
 					Player target = Bukkit.getPlayer(args[0]);
 					int duration = Integer.parseInt(args[1]);
+					if(duration == 0) plugin.utils.sendFormattedMessage(player, "&cFlight duration cannot be set to 0.");
 					plugin.data.getConfig().set(target.getUniqueId() + ".skyblock.flightduration", duration);
 					plugin.data.saveConfig();
 					plugin.utils.sendFormattedMessage(player, "&7Set flight duration of &a" + target.getName() + "&7 to &a" + duration + "&7.");
+					target.setAllowFlight(true);
+					target.setFlying(true);
 				} catch (IllegalArgumentException | NullPointerException e) {
 					plugin.utils.sendFormattedMessage(player, "&cInvalid player/value.");
 				}

@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import live.mufin.skyblock.Main;
 import live.mufin.skyblock.playerdata.Stats.Stat;
@@ -28,10 +30,14 @@ public class SkyblockMenu implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
+		if(event.getItem() == null) return;
+		
+		
+		
 		if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK
 				|| event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-
-			if (event.getItem().getItemMeta().getDisplayName().equals(("§aSkyBlock Menu §7(Right Click)"))) {
+			NamespacedKey sbNameKey = new NamespacedKey(plugin, "sbname");
+			if (event.getItem().getItemMeta().getPersistentDataContainer().get(sbNameKey, PersistentDataType.STRING).equals("SKYBLOCK_MENU")) {
 				Player p = event.getPlayer();
 				this.createSkyblockMenu(p);
 			}

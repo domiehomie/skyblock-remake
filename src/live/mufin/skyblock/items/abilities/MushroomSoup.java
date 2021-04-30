@@ -3,12 +3,14 @@ package live.mufin.skyblock.items.abilities;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import live.mufin.skyblock.Main;
@@ -26,7 +28,8 @@ public class MushroomSoup implements Listener{
 			Player p = event.getPlayer();
 			ItemStack i = event.getItem();
 			if (i == null) return;
-			if(i.getItemMeta().getDisplayName().endsWith("Magical Mushroom Soup")) {
+			NamespacedKey sbNameKey = new NamespacedKey(plugin, "sbname");
+			if(i.getItemMeta().getPersistentDataContainer().get(sbNameKey, PersistentDataType.STRING).equals("MAGICAL_MUSHROOM_SOUP")) {
 				i.setAmount(i.getAmount() - 1);
 				p.getInventory().setItem(p.getInventory().getHeldItemSlot(), i);
 				p.setAllowFlight(true);
@@ -44,10 +47,9 @@ public class MushroomSoup implements Listener{
 
 			@Override
 			public void run() {
-				for(String player : plugin.data.getConfig().getKeys(false)) {
+				for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 					try {
-						UUID uuid = UUID.fromString(player);
-						Player p = Bukkit.getPlayer(uuid);
+						UUID uuid = p.getUniqueId();
 						int time = plugin.data.getConfig().getInt(uuid.toString() + ".skyblock.flightduration");
 						if(time != 0) {
 							if(plugin.data.getConfig().getString(uuid.toString() + ".location.world").equals("world")) {
