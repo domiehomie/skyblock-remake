@@ -74,6 +74,4 @@ public class RegularScoreBoard implements Listener {
 		score11.setScore(2);
 		player.setScoreboard(board);
 	}
-	
-	
 }

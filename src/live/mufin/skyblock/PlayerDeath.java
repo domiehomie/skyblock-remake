@@ -18,7 +18,6 @@ public class PlayerDeath implements Listener{
 		this.plugin = plugin;
 	}
 	
-	private boolean death = false;
 	
 	public enum DeathCause {
 		FALL,

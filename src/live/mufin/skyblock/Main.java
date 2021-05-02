@@ -20,10 +20,10 @@ import live.mufin.skyblock.events.FoodEvent;
 import live.mufin.skyblock.events.JoinEvent;
 import live.mufin.skyblock.events.LoggingEvents;
 import live.mufin.skyblock.events.SkyblockDeathEvents;
-import live.mufin.skyblock.events.SkyblockmenuPreventRemoval;
 import live.mufin.skyblock.gui.SkyblockMenu;
 import live.mufin.skyblock.items.ItemDataManager;
 import live.mufin.skyblock.items.ItemManager;
+import live.mufin.skyblock.items.abilities.ItemStats;
 import live.mufin.skyblock.items.abilities.MushroomSoup;
 import live.mufin.skyblock.playerdata.PlayerDataManager;
 import live.mufin.skyblock.playerdata.Stats;
@@ -40,7 +40,8 @@ public class Main extends JavaPlugin {
 	public PlayerDeath death;
 	private MushroomSoup soup;
 	public Stats stats;
-
+	private ItemStats itemStats;
+	
 	public void onEnable() {
 		this.utils = new Utils(this);
 		this.data = new PlayerDataManager(this);
@@ -51,6 +52,7 @@ public class Main extends JavaPlugin {
 		this.death = new PlayerDeath(this);
 		this.soup = new MushroomSoup(this);
 		this.stats = new Stats(this);
+		this.itemStats = new ItemStats(this);
 
 		this.getCommand("skyblock").setExecutor(new SkyblockCommand(this));
 		this.getCommand("stats").setExecutor(new StatsCommand(this));
@@ -70,7 +72,6 @@ public class Main extends JavaPlugin {
 		
 		this.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
 		this.getServer().getPluginManager().registerEvents(new RegularScoreBoard(this), this);
-		this.getServer().getPluginManager().registerEvents(new SkyblockmenuPreventRemoval(), this);
 		this.getServer().getPluginManager().registerEvents(new LoggingEvents(this), this);
 		this.getServer().getPluginManager().registerEvents(new FoodEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new SkyblockDeathEvents(this), this);
@@ -79,6 +80,7 @@ public class Main extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new SkyblockMenu(this), this);
 		
 		soup.runnable();
+		itemStats.runnable();
 	}
 
 	public void onDisable() {

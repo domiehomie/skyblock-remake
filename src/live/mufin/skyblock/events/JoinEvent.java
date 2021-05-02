@@ -62,6 +62,10 @@ public class JoinEvent implements Listener {
 			if (!plugin.data.getConfig().contains(player.getUniqueId() + ".skyblock.stat." + stat))
 				plugin.data.getConfig().set(player.getUniqueId() + ".skyblock.stat." + stat, 0.0D);
 		}
+		for (Stat stat : Stat.values()) {
+			if (!plugin.data.getConfig().contains(player.getUniqueId() + ".skyblock.itemstat." + stat))
+				plugin.data.getConfig().set(player.getUniqueId() + ".skyblock.itemstat." + stat, 0.0D);
+		}
 
 		// LOGGING DATA
 		plugin.data.getConfig().set(uuid.toString() + ".logging.itemdrops", false);

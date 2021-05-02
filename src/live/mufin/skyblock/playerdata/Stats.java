@@ -22,82 +22,78 @@ public class Stats {
 		switch (stat) {
 		case HEALTH:
 			return "&c❤ Health &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.HEALTH);
-
+					+ this.getStatValue(stat, target);
 		case ABILITYDAMAGE:
 			return "&c✹ Ability Damage &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.ABILITYDAMAGE);
+					+ this.getStatValue(stat, target);
 
 		case CRIT_CHANCE:
 			return "&9☣ Crit Chance &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.CRIT_CHANCE);
+					+ this.getStatValue(stat, target);
 
 		case CRIT_DMG:
 			return "&9☠ Crit Damage &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.CRIT_DMG);
+					+ this.getStatValue(stat, target);
 
 		case DAMAGE:
 			return "&c❁ Damage &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.DAMAGE);
+					+ this.getStatValue(stat, target);
 
 		case DEFENSE:
 			return "&a❈  Defense &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.DEFENSE);
+					+ this.getStatValue(stat, target);
 
 		case FARMING_FORTUNE:
-			return "&6☘ Farming Fortune &f" + plugin.data.getConfig()
-					.getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.FARMING_FORTUNE);
+			return "&6☘ Farming Fortune &f" + this.getStatValue(stat, target);
 
 		case FEROCITY:
 			return "&c⫽ Ferocity &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.FEROCITY);
+					+ this.getStatValue(stat, target);
 
 		case FORAGING_FORTUNE:
-			return "&6☘ Foraging Fortune &f" + plugin.data.getConfig()
-					.getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.FORAGING_FORTUNE);
+			return "&6☘ Foraging Fortune &f" + this.getStatValue(stat, target);
 
 		case INTELLIGENCE:
 			return "&b✎ Intelligence &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.INTELLIGENCE);
+					+ this.getStatValue(stat, target);
 
 		case MAGICFIND:
 			return "&b✯ Magic Find &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.MAGICFIND);
+					+ this.getStatValue(stat, target);
 
 		case MINING_FORTUNE:
 			return "&6☘ Mining Fortune &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.MINING_FORTUNE);
+					+ this.getStatValue(stat, target);
 
 		case MINING_SPEED:
 			return "&6⸕ Mining Speed &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.MINING_SPEED);
+					+ this.getStatValue(stat, target);
 
 		case PETLUCK:
 			return "&d♣ Pet Luck &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.PETLUCK);
+					+ this.getStatValue(stat, target);
 
 		case SEACREATURESPAWNRATE:
-			return "&3α Sea Creature Chance &f" + plugin.data.getConfig()
-					.getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.SEACREATURESPAWNRATE);
+			return "&3α Sea Creature Chance &f" + this.getStatValue(stat, target);
 
 		case SPEED:
 			return "&f✦ Speed "
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.SPEED);
+					+ this.getStatValue(stat, target);
 
 		case STRENGTH:
 			return "&c❁ Strength &f"
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.STRENGTH);
+					+ this.getStatValue(stat, target);
 
 		case TRUE_DEFENSE:
 			return "&f❂ True Defense "
-					+ plugin.data.getConfig().getDouble(target.getUniqueId() + ".skyblock.stat." + Stat.TRUE_DEFENSE);
+					+ this.getStatValue(stat, target);
 
 		}
 		return null;
 	}
 	
 	public double getStatValue(Stat stat, Player target) {
-		return plugin.data.getConfig().getDouble(target.getUniqueId().toString() + ".skyblock.stat." + stat);
+		return plugin.data.getConfig().getDouble(target.getUniqueId().toString() + ".skyblock.stat." + stat) + plugin.data.getConfig().getDouble(target.getUniqueId().toString() + ".skyblock.itemstat." + stat);
 	}
 	
 

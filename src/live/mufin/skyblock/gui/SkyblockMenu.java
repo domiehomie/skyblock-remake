@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -27,6 +28,18 @@ public class SkyblockMenu implements Listener {
 	public SkyblockMenu(Main plugin) {
 		this.plugin = plugin;
 	}
+	
+	
+	@EventHandler
+	public void onDrop(PlayerDropItemEvent event) {
+		NamespacedKey key = new NamespacedKey(plugin, "sbname");
+		if(!event.getItemDrop().getItemStack().getItemMeta().getPersistentDataContainer().has(key, PersistentDataType.STRING)) return;
+		if(event.getItemDrop().getItemStack().getItemMeta().getPersistentDataContainer().get(key, PersistentDataType.STRING).equals("SKYBLOCK_MENU")) {
+			event.setCancelled(true);
+			this.createSkyblockMenu(event.getPlayer());
+		}
+	}
+	
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
@@ -46,6 +59,10 @@ public class SkyblockMenu implements Listener {
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
+		if(event.getSlot() == 8) {
+			this.createSkyblockMenu((Player) event.getWhoClicked());
+		}
+		
 		if(event.getView().getTitle().equals("SkyBlock Menu")) {
 			event.setCancelled(true);
 		}

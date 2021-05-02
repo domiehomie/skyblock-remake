@@ -35,9 +35,6 @@ public class SetFlightCommand implements CommandExecutor {
 					plugin.utils.sendFormattedMessage(player, "&cInvalid player/value.");
 				}
 				
-				
-				
-			
 		}
 		
 		return true;
