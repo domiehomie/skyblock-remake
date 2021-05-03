@@ -52,3 +52,9 @@ commands:
   goto:
     description: Sends you to a specified world.
     usage: /<command> <world>
+  collection:
+    description: Lets you see the specific collection of a player.
+    usage: /<command> <player> <collection>
+  setcollection:
+    description: Lets you set the collection of a player.
+    usage: /<command> <player> <collection> <amount>

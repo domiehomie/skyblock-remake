@@ -68,6 +68,8 @@ public class JoinEvent implements Listener {
 		ItemStack skyblockmenu = plugin.item.getItem("SKYBLOCK_MENU");
 		if (!(player.getInventory().contains(skyblockmenu)))
 			player.getInventory().setItem(8, skyblockmenu);
+
+		plugin.collections.createPlayer(player);
 		
 		plugin.board.createBoard(player);
 

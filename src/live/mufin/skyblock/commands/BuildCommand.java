@@ -26,10 +26,10 @@ public class BuildCommand implements CommandExecutor {
                 boolean value = plugin.utils.intToBoolean(player.getPersistentDataContainer().get(key, PersistentDataType.INTEGER));
                 if (value) {
                     player.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, 0);
-                    plugin.utils.sendFormattedMessage(player, "&cDisabled &7build mode.");
+                    plugin.utils.sendFormattedMessage(player, "&aEnabled &7build mode.");
                 } else {
                     player.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, 1);
-                    plugin.utils.sendFormattedMessage(player, "&aEnabled &7build mode.");
+                    plugin.utils.sendFormattedMessage(player, "&cDisabled &7build mode.");
                 }
             }
         }
