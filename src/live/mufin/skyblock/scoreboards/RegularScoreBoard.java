@@ -7,10 +7,12 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -40,6 +42,12 @@ public class RegularScoreBoard implements Listener {
 		DateFormat tform = new SimpleDateFormat("HH:mm");
 		Date date = new Date();
 		
+		NamespacedKey flightKey = new NamespacedKey(plugin, "flightduration");
+		NamespacedKey bitsKey = new NamespacedKey(plugin, "bits");
+		NamespacedKey coinsKey = new NamespacedKey(plugin, "coins");
+		
+		long coins = player.getPersistentDataContainer().get(coinsKey, PersistentDataType.LONG);
+		int bits = player.getPersistentDataContainer().get(bitsKey, PersistentDataType.INTEGER);
 		NumberFormat format = NumberFormat.getInstance(Locale.US);
 		
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
@@ -58,16 +66,18 @@ public class RegularScoreBoard implements Listener {
 		score5.setScore(8);
 		Score score6 = obj.getScore(ChatColor.RESET + " " + ChatColor.RESET + " "  + ChatColor.RESET + " " );
 		score6.setScore(7);
-		if(plugin.data.getConfig().getInt(player.getUniqueId().toString() + ".skyblock.flightduration") != 0) {
-			int time = plugin.data.getConfig().getInt(player.getUniqueId().toString() + ".skyblock.flightduration");
+		if(player.getPersistentDataContainer().get(flightKey, PersistentDataType.LONG) != 0L) {
+			long time = player.getPersistentDataContainer().get(flightKey, PersistentDataType.LONG);
 			
 			Score score7 = obj.getScore("Flight Duration: " + ChatColor.GREEN + plugin.utils.formatSeconds(time));
 			score7.setScore(6);
 		}
-		Score score8 = obj.getScore("Coins: " + ChatColor.GOLD + format.format(plugin.data.getConfig().getLong(player.getUniqueId() + ".skyblock.coins")));
+		Score score8 = obj.getScore("Coins: " + ChatColor.GOLD + format.format(coins));
 		score8.setScore(5);
-		Score score9 = obj.getScore("Bits: " + ChatColor.AQUA + plugin.data.getConfig().getInt(player.getUniqueId() + ".skyblock.bits"));
-		score9.setScore(4);
+		if(player.getPersistentDataContainer().has(bitsKey, PersistentDataType.INTEGER)) { 
+			Score score9 = obj.getScore("Bits: " + ChatColor.AQUA + format.format(bits));
+			score9.setScore(4);
+		}
 		Score score10 = obj.getScore(ChatColor.RESET + " ");
 		score10.setScore(3);
 		Score score11 = obj.getScore(ChatColor.YELLOW + "www.mufin.live");

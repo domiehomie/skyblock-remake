@@ -21,7 +21,7 @@ commands:
   setcoins:
     description: Set the coins of a player.
     aliases: setbalance
-    usage: /<command> <player> [amount]
+    usage: /<command> <player> <amount>
   setstat:
     description: Set a specific statistic of a player.
     usage: /<command> <player> <stat> <value>
@@ -42,5 +42,8 @@ commands:
     aliases: log
   setflight:
     description: Lets you set the flight duration of a player.
+    usage: /<command> <player> <amount>
+  setbits:
+    description: Set the bits of a player.
     usage: /<command> <player> <amount>
     

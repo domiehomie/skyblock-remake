@@ -1,25 +1,33 @@
 package live.mufin.skyblock.events;
 
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.persistence.PersistentDataType;
 
 import live.mufin.skyblock.Main;
 
 public class LoggingEvents implements Listener{
 	
 	private Main plugin;
+	private NamespacedKey itemDropsKey;
+	private NamespacedKey itemClicksKey;
 
 	public LoggingEvents(Main plugin) {
 		this.plugin = plugin;
+		this.itemDropsKey = new NamespacedKey(plugin, "logging_itemdrops");
+		this.itemClicksKey = new NamespacedKey(plugin, "logging_itemclicks");
 	}
+	
+
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
-		if(plugin.data.getConfig().getBoolean(player.getUniqueId().toString() + ".logging.itemclicks")) {
+		if(player.getPersistentDataContainer().get(itemClicksKey, PersistentDataType.INTEGER) == 1) {
 			try {
 				plugin.utils.sendFormattedMessage(player, "&7New &bInventoryClickEvent&7:");
 				plugin.utils.sendFormattedMessage(player, "&7Display name: &r" + event.getCurrentItem().getItemMeta().getDisplayName());
@@ -40,7 +48,7 @@ public class LoggingEvents implements Listener{
 	@EventHandler
 	public void onDrop(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
-		if(plugin.data.getConfig().getBoolean(player.getUniqueId().toString() +  ".logging.itemdrops")) {
+		if(player.getPersistentDataContainer().get(itemDropsKey, PersistentDataType.INTEGER) == 1) {
 			plugin.utils.sendFormattedMessage(player, "&7New &bPlayerDropItemEvent&7:");
 			plugin.utils.sendFormattedMessage(player, "&7Name: &r" + event.getItemDrop().getItemStack().getItemMeta().getDisplayName());
 			plugin.utils.sendFormattedMessage(player, "&7Item: &a" + event.getItemDrop().getItemStack().getType().toString());

@@ -6,30 +6,18 @@ import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
-
-import live.mufin.skyblock.Main;
 
 public class SetLoggerTabComplete implements TabCompleter {
 
-	private Main plugin;
-
-	public SetLoggerTabComplete(Main plugin) {
-		this.plugin = plugin;
-	}
+	
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-		Player player = (Player) sender;
 
 		List<String> features = new ArrayList<String>();
 		if (features.isEmpty()) {
-			for (String feature : plugin.data.getConfig().getKeys(true)) {
-				if (feature.startsWith(player.getUniqueId().toString() + ".logging.")) {
-					String defaultLogging = player.getUniqueId().toString() + ".logging.";
-					features.add(feature.replace(defaultLogging, ""));
-				}
-			}
+			features.add("itemclicks");
+			features.add("itemdrops");
 		}
 
 		List<String> results = new ArrayList<String>();

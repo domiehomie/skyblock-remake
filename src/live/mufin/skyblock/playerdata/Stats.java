@@ -1,6 +1,8 @@
 package live.mufin.skyblock.playerdata;
 
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 
 import live.mufin.skyblock.Main;
 
@@ -92,8 +94,16 @@ public class Stats {
 		return null;
 	}
 	
+	
 	public double getStatValue(Stat stat, Player target) {
-		return plugin.data.getConfig().getDouble(target.getUniqueId().toString() + ".skyblock.stat." + stat) + plugin.data.getConfig().getDouble(target.getUniqueId().toString() + ".skyblock.itemstat." + stat);
+		NamespacedKey key = new NamespacedKey(plugin, stat.toString());
+		NamespacedKey itemKey = new NamespacedKey(plugin, "item_" + stat.toString());
+		if(target.getPersistentDataContainer().has(itemKey, PersistentDataType.DOUBLE)) {
+			return target.getPersistentDataContainer().get(key, PersistentDataType.DOUBLE) + target.getPersistentDataContainer().get(itemKey, PersistentDataType.DOUBLE);
+		}else {
+			return target.getPersistentDataContainer().get(key, PersistentDataType.DOUBLE);
+		}
+		
 	}
 	
 

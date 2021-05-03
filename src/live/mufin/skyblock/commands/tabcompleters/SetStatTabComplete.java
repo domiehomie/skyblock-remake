@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-import live.mufin.skyblock.Main;
 import live.mufin.skyblock.playerdata.Stats.Stat;
 
 public class SetStatTabComplete implements TabCompleter {

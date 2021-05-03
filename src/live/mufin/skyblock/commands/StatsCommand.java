@@ -27,6 +27,7 @@ public class StatsCommand implements CommandExecutor {
 
 			if (args.length == 1) {
 				Player target = Bukkit.getPlayer(args[0]);
+				plugin.utils.sendFormattedMessage(player, "&7Stats for &a" + target.getDisplayName() + "&7:");
 				
 				for(Stat stat : Stat.values()) {
 					plugin.utils.sendFormattedMessage(player, plugin.stats.getStatString(stat, target));

@@ -1,21 +1,16 @@
 package live.mufin.skyblock.events;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import live.mufin.skyblock.Main;
 import live.mufin.skyblock.playerdata.Stats.Stat;
-import net.md_5.bungee.api.ChatColor;
 
 public class JoinEvent implements Listener {
 
@@ -27,49 +22,49 @@ public class JoinEvent implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-
 		Player player = event.getPlayer();
-		UUID uuid = player.getUniqueId();
-		World world = player.getWorld();
+		PersistentDataContainer container = player.getPersistentDataContainer();
+		NamespacedKey coinsKey = new NamespacedKey(plugin, "coins");
+		NamespacedKey bitsKey = new NamespacedKey(plugin, "bits");
+		NamespacedKey flightDurationKey = new NamespacedKey(plugin, "flightduration");
 
-		
-		plugin.getLogger().info("Player " + player.getName() + " joined. Creating playerdata.");
-		// Creating player in playerdata.yml
-
-		// GENERAL DATA
-		plugin.data.getConfig().set(uuid.toString() + ".name", player.getName());
-		plugin.data.getConfig().set(uuid.toString() + ".displayname", player.getDisplayName());
-		plugin.data.getConfig().set(uuid.toString() + ".adress", player.getAddress().toString());
-		plugin.data.getConfig().set(uuid.toString() + ".level", player.getLevel());
-		plugin.data.getConfig().set(uuid.toString() + ".death", false);
-
-		// LOCATION DATA
-		plugin.data.getConfig().set(uuid.toString() + ".location.world", world.getName());
-		plugin.data.getConfig().set(uuid.toString() + ".location.x", player.getLocation().getX());
-		plugin.data.getConfig().set(uuid.toString() + ".location.y", player.getLocation().getY());
-		plugin.data.getConfig().set(uuid.toString() + ".location.z", player.getLocation().getZ());
-		plugin.data.getConfig().set(uuid.toString() + ".location.pitch", player.getLocation().getPitch());
-		plugin.data.getConfig().set(uuid.toString() + ".location.yaw", player.getLocation().getYaw());
-
-		// SKYBLOCK DATA
-		if (!plugin.data.getConfig().contains(uuid.toString() + ".skyblock")) {
-			plugin.data.getConfig().set(uuid.toString() + ".skyblock.coins", 0L);
-			plugin.data.getConfig().set(uuid.toString() + ".skyblock.bits", 0);
-			plugin.data.getConfig().set(uuid.toString() + ".skyblock.flightduration", 0L);
+		if (!container.has(coinsKey, PersistentDataType.LONG)) {
+			container.set(coinsKey, PersistentDataType.LONG, 0L);
 		}
-
-		for (Stat stat : Stat.values()) {
-			if (!plugin.data.getConfig().contains(player.getUniqueId() + ".skyblock.stat." + stat))
-				plugin.data.getConfig().set(player.getUniqueId() + ".skyblock.stat." + stat, 0.0D);
+		if (!container.has(bitsKey, PersistentDataType.INTEGER)) {
+			container.set(bitsKey, PersistentDataType.INTEGER, 0);
+		}
+		if (!container.has(flightDurationKey, PersistentDataType.LONG)) {
+			container.set(flightDurationKey, PersistentDataType.LONG, 0L);
 		}
 		for (Stat stat : Stat.values()) {
-			if (!plugin.data.getConfig().contains(player.getUniqueId() + ".skyblock.itemstat." + stat))
-				plugin.data.getConfig().set(player.getUniqueId() + ".skyblock.itemstat." + stat, 0.0D);
+			NamespacedKey key = new NamespacedKey(plugin, stat.toString());
+			if (!container.has(key, PersistentDataType.DOUBLE)) {
+				container.set(key, PersistentDataType.DOUBLE, 0.0D);
+			}
+		}
+		for (Stat stat : Stat.values()) {
+			NamespacedKey key = new NamespacedKey(plugin, "item_" + stat.toString());
+			if (!container.has(key, PersistentDataType.DOUBLE)) {
+				container.set(key, PersistentDataType.DOUBLE, 0.0D);
+			}
 		}
 
-		// LOGGING DATA
-		plugin.data.getConfig().set(uuid.toString() + ".logging.itemdrops", false);
-		plugin.data.getConfig().set(uuid.toString() + ".logging.itemclicks", false);
+		NamespacedKey itemDropsKey = new NamespacedKey(plugin, "logging_itemdrops");
+		NamespacedKey itemClicksKey = new NamespacedKey(plugin, "logging_itemclicks");
+		if (!container.has(itemDropsKey, PersistentDataType.INTEGER)) {
+			container.set(itemDropsKey, PersistentDataType.INTEGER, 0);
+		}
+		if (!container.has(itemClicksKey, PersistentDataType.INTEGER)) {
+			container.set(itemClicksKey, PersistentDataType.INTEGER, 0);
+		}
+
+		if (container.has(flightDurationKey, PersistentDataType.LONG)) {
+			if (container.get(flightDurationKey, PersistentDataType.LONG) != 0) {
+				player.setAllowFlight(true);
+				player.setFlying(true);
+			}
+		}
 
 		// GIVING SKYBLOCK MENU
 		ItemStack skyblockmenu = plugin.item.getItem("SKYBLOCK_MENU");
@@ -77,12 +72,8 @@ public class JoinEvent implements Listener {
 			player.getInventory().setItem(8, skyblockmenu);
 		}
 		
-		plugin.data.saveConfig();
-		
-		if(plugin.data.getConfig().getInt(player.getUniqueId().toString() + ".skyblock.flightduration") != 0) {
-			player.setAllowFlight(true);
-			player.setFlying(true);
-		}
+		plugin.board.createBoard(player);
+
 	}
 
 }

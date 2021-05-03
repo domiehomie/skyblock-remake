@@ -10,33 +10,32 @@ import org.bukkit.persistence.PersistentDataType;
 
 import live.mufin.skyblock.Main;
 
-public class SetCoinsCommand implements CommandExecutor{
+public class SetBitsCommand implements CommandExecutor{
 
 	private Main plugin;
 	private NamespacedKey key;
 
-	public SetCoinsCommand(Main plugin) {
+	public SetBitsCommand(Main plugin) {
 		this.plugin = plugin;
-		this.key = new NamespacedKey(plugin, "coins");
+		this.key = new NamespacedKey(plugin, "bits");
 	}
 	
 
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(label.equalsIgnoreCase("setcoins") || label.equalsIgnoreCase("setbalance")) {
+		if(label.equalsIgnoreCase("setbits")) {
 			if(!(sender instanceof Player))
 				return true;
 			
 			
 			Player player = (Player) sender;
-			if(!(args.length == 2))
-				return false;
+			if(args.length < 2) return true;
 			
 			try {
 				Player target = Bukkit.getPlayer(args[0]);
-				Long coins = Long.parseLong(args[1]);
-				target.getPersistentDataContainer().set(key, PersistentDataType.LONG, coins);
-				plugin.utils.sendFormattedMessage(player, "&7Set coins of &a" + target.getDisplayName() + "&7 to &6" + coins + "&7.");
+				int bits = Integer.parseInt(args[1]);
+				target.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, bits);
+				plugin.utils.sendFormattedMessage(player, "&7Set bits of &a" + target.getDisplayName() + "&7 to &b" + bits + "&7.");
 				plugin.board.createBoard(target);
 			} catch (NumberFormatException | NullPointerException e) {
 				plugin.utils.sendFormattedMessage(player, "&cPlease input a valid number and player.");
