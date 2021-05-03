@@ -1,26 +1,15 @@
 package live.mufin.skyblock;
 
+import live.mufin.skyblock.commands.*;
+import live.mufin.skyblock.commands.tabcompleters.GotoTabComplete;
+import live.mufin.skyblock.events.*;
+import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import live.mufin.skyblock.commands.CoinsCommand;
-import live.mufin.skyblock.commands.ItemCommand;
-import live.mufin.skyblock.commands.LoggerCommand;
-import live.mufin.skyblock.commands.ScoreboardReloadCommand;
-import live.mufin.skyblock.commands.SetBitsCommand;
-import live.mufin.skyblock.commands.SetCoinsCommand;
-import live.mufin.skyblock.commands.SetFlightCommand;
-import live.mufin.skyblock.commands.SetLoggerCommand;
-import live.mufin.skyblock.commands.SetStatCommand;
-import live.mufin.skyblock.commands.SkyblockCommand;
-import live.mufin.skyblock.commands.StatsCommand;
 import live.mufin.skyblock.commands.tabcompleters.ItemTabComplete;
 import live.mufin.skyblock.commands.tabcompleters.SetLoggerTabComplete;
 import live.mufin.skyblock.commands.tabcompleters.SetStatTabComplete;
-import live.mufin.skyblock.events.FoodEvent;
-import live.mufin.skyblock.events.JoinEvent;
-import live.mufin.skyblock.events.LoggingEvents;
-import live.mufin.skyblock.events.SkyblockDeathEvents;
 import live.mufin.skyblock.gui.SkyblockMenu;
 import live.mufin.skyblock.items.ItemDataManager;
 import live.mufin.skyblock.items.ItemManager;
@@ -51,6 +40,8 @@ public class Main extends JavaPlugin {
 		this.stats = new Stats(this);
 		this.itemStats = new ItemStats(this);
 
+		this.getServer().createWorld(WorldCreator.name("hub"));
+
 		this.getCommand("skyblock").setExecutor(new SkyblockCommand(this));
 		this.getCommand("stats").setExecutor(new StatsCommand(this));
 		this.getCommand("coins").setExecutor(new CoinsCommand(this));
@@ -62,11 +53,13 @@ public class Main extends JavaPlugin {
 		this.getCommand("logger").setExecutor(new LoggerCommand(this));
 		this.getCommand("setflight").setExecutor(new SetFlightCommand(this));
 		this.getCommand("setbits").setExecutor(new SetBitsCommand(this));
-		
+		this.getCommand("build").setExecutor(new BuildCommand(this));
+		this.getCommand("goto").setExecutor(new GotoCommand(this));
+
 		this.getCommand("setlogger").setTabCompleter(new SetLoggerTabComplete());
 		this.getCommand("setstat").setTabCompleter(new SetStatTabComplete());
 		this.getCommand("item").setTabCompleter(new ItemTabComplete(this));
-		
+		this.getCommand("goto").setTabCompleter(new GotoTabComplete());
 		
 		this.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
 		this.getServer().getPluginManager().registerEvents(new RegularScoreBoard(this), this);
@@ -75,6 +68,7 @@ public class Main extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new SkyblockDeathEvents(this), this);
 		this.getServer().getPluginManager().registerEvents(new MushroomSoup(this), this);
 		this.getServer().getPluginManager().registerEvents(new SkyblockMenu(this), this);
+		this.getServer().getPluginManager().registerEvents(new BuildModeEvents(this), this);
 		
 		soup.runnable();
 		itemStats.runnable();

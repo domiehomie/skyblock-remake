@@ -46,4 +46,9 @@ commands:
   setbits:
     description: Set the bits of a player.
     usage: /<command> <player> <amount>
-    
+  build:
+    description: Enables/Disables build mode.
+    usage: /<command>
+  goto:
+    description: Sends you to a specified world.
+    usage: /<command> <world>

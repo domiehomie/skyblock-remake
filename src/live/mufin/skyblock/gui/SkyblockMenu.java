@@ -50,6 +50,7 @@ public class SkyblockMenu implements Listener {
 		if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK
 				|| event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			NamespacedKey sbNameKey = new NamespacedKey(plugin, "sbname");
+			if(!event.getItem().getItemMeta().getPersistentDataContainer().has(sbNameKey, PersistentDataType.STRING)) return;
 			if (event.getItem().getItemMeta().getPersistentDataContainer().get(sbNameKey, PersistentDataType.STRING).equals("SKYBLOCK_MENU")) {
 				Player p = event.getPlayer();
 				this.createSkyblockMenu(p);
