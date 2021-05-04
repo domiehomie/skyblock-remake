@@ -21,7 +21,11 @@ public class ItemCommand implements CommandExecutor {
 		if(label.equalsIgnoreCase("item")) {
 			if(!(sender instanceof Player)) return true;
 			Player player = (Player) sender;
-			if(args.length == 1) return false;
+			if(args[0].equals("AIR")) {
+				plugin.utils.sendFormattedMessage(player, "&cYou cannot give yourself Air lmao");
+				return true;
+			}
+				if(args.length == 1) return false;
 			if(args.length == 2) {
 				if(plugin.items.getConfig().contains(args[0])) {
 					try {

@@ -118,7 +118,7 @@ public class ItemManager {
 				
 			}
 		}
-		lore.add(ChatColor.RESET + "                      ");
+
 
 		if (plugin.items.getConfig().contains(item + ".lore")) {
 			List<String> configLore = plugin.items.getConfig().getStringList(item + ".lore");
@@ -127,7 +127,6 @@ public class ItemManager {
 			}
 
 			if (plugin.items.getConfig().contains(item + ".rarity")) {
-				lore.add(ChatColor.RESET + "             ");
 
 			}
 		}
@@ -181,7 +180,7 @@ public class ItemManager {
 
 	public ItemStack getItem(String itemname) {
 		if (plugin.items.getConfig().contains(itemname)) {
-
+			if(itemname.equals("AIR")) return null;
 			Material material = this.getItemMaterial(itemname);
 			ItemStack item = new ItemStack(material);
 			ItemMeta meta = item.getItemMeta();

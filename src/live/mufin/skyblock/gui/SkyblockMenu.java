@@ -43,7 +43,7 @@ public class SkyblockMenu implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		if(event.getItem() == null) return;
+		if(event.getItem() == null || event.getItem().getItemMeta() == null) return;
 		
 		
 		

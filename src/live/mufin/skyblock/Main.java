@@ -81,6 +81,7 @@ public class Main extends JavaPlugin {
 		this.getCommand("goto").setExecutor(new GotoCommand(this));
 		this.getCommand("collection").setExecutor(new CollectionCommand(this));
 		this.getCommand("setcollection").setExecutor(new SetCollectionCommand(this));
+		this.getCommand("createitems").setExecutor(new CreateItemsCommand(this));
 
 		// Initializing TabCompleters
 		this.getCommand("setlogger").setTabCompleter(new SetLoggerTabComplete());
@@ -99,6 +100,8 @@ public class Main extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new MushroomSoup(this), this);
 		this.getServer().getPluginManager().registerEvents(new SkyblockMenu(this), this);
 		this.getServer().getPluginManager().registerEvents(new BuildModeEvents(this), this);
+		this.getServer().getPluginManager().registerEvents(new EnterPortalEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new ItemPickupEvent(), this);
 
 		// Initializing BukkitRunnables
 		soup.runnable();

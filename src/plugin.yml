@@ -59,3 +59,6 @@ commands:
   setcollection:
     description: Lets you set the collection of a player.
     usage: /<command> <player> <collection> <amount>
+  createitems:
+    description: Creates all vanilla items into Skyblock items for you.
+    usage: /<command>
