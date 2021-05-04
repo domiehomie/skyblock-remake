@@ -14,6 +14,7 @@ public class CollectionTabComplete implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 
         List<String> collections = new ArrayList<String>();
+        // Adds collections to list.
         if(collections.isEmpty()) {
             for(SQLGetter.Collection collection : SQLGetter.Collection.values()) {
                 collections.add(collection.toString());
@@ -22,6 +23,7 @@ public class CollectionTabComplete implements TabCompleter {
 
         List<String> results = new ArrayList<String>();
 
+        // Sorts through list depending on characters that have been put in.
         if(args.length == 2) {
             for(String result : collections) {
                 if(result.toUpperCase().startsWith(args[1].toUpperCase()))

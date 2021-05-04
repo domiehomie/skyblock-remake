@@ -28,6 +28,12 @@ public class Stats {
 		FORAGING_FORTUNE
 	}
 
+	/**
+	 * Nicely formatted stats
+	 * @param stat
+	 * @param target
+	 * @return The stat and value in formatted string.
+	 */
 	public String getStatString(Stat stat, Player target) {
 		switch (stat) {
 		case HEALTH:
@@ -101,8 +107,13 @@ public class Stats {
 		}
 		return null;
 	}
-	
-	
+
+	/**
+	 * Used to get the stat value of a player
+	 * @param stat
+	 * @param target
+	 * @return value of the player's stat
+	 */
 	public double getStatValue(Stat stat, Player target) {
 		NamespacedKey key = new NamespacedKey(plugin, stat.toString());
 		NamespacedKey itemKey = new NamespacedKey(plugin, "item_" + stat.toString());
@@ -118,6 +129,9 @@ public class Stats {
 		NamespacedKey currentHealthKey = new NamespacedKey(plugin, "currentHealth");
 		NamespacedKey manaKey = new NamespacedKey(plugin, "mana");
 		new BukkitRunnable() {
+			/**
+			 * ActionBar (Health, Defense and Mana)
+			 */
 			public void run() {
 				for(Player player : Bukkit.getOnlinePlayers()) {
 					PersistentDataContainer container = player.getPersistentDataContainer();
@@ -137,6 +151,9 @@ public class Stats {
 		}.runTaskTimer(plugin, 0, 1);
 
 		new BukkitRunnable() {
+			/**
+			 * Mana regeneration
+			 */
 			public void run() {
 				for(Player player : Bukkit.getOnlinePlayers()) {
 					NamespacedKey manaKey = new NamespacedKey(plugin, "mana");

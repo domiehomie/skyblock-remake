@@ -24,20 +24,34 @@ public class Utils {
 	public Utils(Main plugin) {
 		this.plugin = plugin;
 	}
-	
-	
-	
+
+
+	/**
+	 * Easy way of turning boolean into integer.
+	 * @param value
+	 * @return 1 if value is true, 0 if value is false.
+	 */
 	public int booleanToInt(boolean value) {
 		if(value) return 1;
 		else return 0;
 	}
+
+	/**
+	 * Easy way of turning integer into boolean.
+	 * @param value
+	 * @return true if value is 1, falses if value is 0.
+	 */
 	public boolean intToBoolean(int value) {
 		if(value == 0) return false;
 		else return true;
 	}
-	
 
-	// Sending Messages
+
+	/**
+	 * Short way to send chatmessages formatted with [SB] and enabling color codes.
+	 * @param player
+	 * @param message
+	 */
 	public void sendFormattedMessage(Player player, String message) {
 		player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&aSB&8]&r " + message));
 		return;
@@ -55,7 +69,10 @@ public class Utils {
 		return HH + ":" + MM + ":" + SS;
 	}
 
-	// Sending logger message (needed for command)
+	/**
+	 * Send the logger message, used in multiple occasions
+	 * @param player
+	 */
 	public void sendLoggerMessage(Player player) {
 		List<String> features = new ArrayList<String>();
 		features.add("itemdrops");
@@ -101,6 +118,11 @@ public class Utils {
 
 	}
 
+	/**
+	 * Used to capitalize the first charactor of each word in a lowercase string.
+	 * @param str
+	 * @return "sample string" -> "Sample String"
+	 */
 	public static String capitalizeWord(String str){
 		String words[]=str.split("\\s");
 		String capitalizeWord="";

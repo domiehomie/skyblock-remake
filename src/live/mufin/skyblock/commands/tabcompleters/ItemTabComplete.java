@@ -19,16 +19,16 @@ public class ItemTabComplete implements TabCompleter {
 	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-		
+		// Adds items to list.
 		List<String> items = new ArrayList<String>();
 		if(items.isEmpty()) {
 			for(String item : plugin.items.getConfig().getKeys(false)) {
 				items.add(item.toString());
 			}
 		}
-		
+
+		// Sorts through list depending on characters that have been put in.
 		List<String> results = new ArrayList<String>();
-		
 		if(args.length == 1) {
 			for(String result : items) {
 				if(result.toUpperCase().startsWith(args[0].toUpperCase()))

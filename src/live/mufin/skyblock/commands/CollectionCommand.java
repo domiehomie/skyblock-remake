@@ -23,13 +23,14 @@ public class CollectionCommand implements CommandExecutor {
 
             if(args.length == 2) {
                 try {
+                    // getting all values from strings (saved by try and catch's)
                     Player target = Bukkit.getPlayer(args[0]);
                     SQLGetter.Collection collection = SQLGetter.Collection.valueOf(args[1]);
-
                     int value = plugin.collections.getCollection(target.getUniqueId(), collection);
+
                     plugin.utils.sendFormattedMessage(player, "&7Collection &a" + collection + " &7of player &a" + target.getName() + "&7 is &a" + value + "&7.");
                 } catch (NullPointerException | IllegalArgumentException e) {
-                   plugin.utils.sendFormattedMessage(player, "&cInvalid player or collection.");
+                   plugin.utils.sendFormattedMessage(player, "&cInvalid player, collection and/or value.");
                 }
             }
 

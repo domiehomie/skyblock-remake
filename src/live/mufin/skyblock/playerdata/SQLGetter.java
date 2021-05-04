@@ -13,6 +13,7 @@ import java.util.UUID;
 
 public class SQLGetter {
 
+
     public enum Collection {
         FARMING_WHEAT, FARMING_CARROT, FARMING_POTATO, FARMING_PUMPKIN, FARMING_MELON, FARMING_SEEDS, FARMING_MUSHROOM, FARMING_COCOABEAN, FARMING_CACTUS, FARMING_SUGARCANE, FARMING_FEATHER,
         FARMING_LEATHER, FARMING_PORKCHOP, FARMING_CHICKEN, FARMING_MUTTON, FARMING_RABBIT, FARMING_NETHERWART,
@@ -33,6 +34,10 @@ public class SQLGetter {
         this.plugin = plugin;
     }
 
+    /**
+     * Used to format all collections into MySQL form, dynamically
+     * @return String for preparedstatement
+     */
     private String getCollections() {
         List<String> collections = new ArrayList<String>();
         for (Collection collection : Collection.values()) {
@@ -42,6 +47,10 @@ public class SQLGetter {
         return string;
     }
 
+
+    /**
+     * Creates table for when the server starts.
+     */
     public void createTable() {
         PreparedStatement ps;
         try {
@@ -52,7 +61,10 @@ public class SQLGetter {
         }
     }
 
-
+    /**
+     * Adds a player to the database
+     * @param player
+     */
     public void createPlayer(Player player) {
         try {
             UUID uuid = player.getUniqueId();
@@ -67,6 +79,11 @@ public class SQLGetter {
         }
     }
 
+    /**
+     * Checks if a uuid is in the database
+     * @param uuid
+     * @return true -> player is in the database || false -> player is not in the database
+     */
     public boolean exists(UUID uuid) {
         try {
             PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("SELECT * FROM collectiondata WHERE UUID=?");
@@ -83,7 +100,12 @@ public class SQLGetter {
         return false;
     }
 
-
+    /**
+     * Used to add items to a collection.
+     * @param uuid
+     * @param collection
+     * @param amount
+     */
     public void addCollection(UUID uuid, Collection collection, int amount) {
         try {
             PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("UPDATE collectiondata SET " + collection + "=? WHERE UUID=?");
@@ -95,6 +117,12 @@ public class SQLGetter {
         }
     }
 
+    /**
+     * Used to set the value of a player's collection
+     * @param uuid
+     * @param collection
+     * @param amount
+     */
     public void setCollection(UUID uuid, Collection collection, int amount) {
         try {
             PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("UPDATE collectiondata SET " + collection + "=? WHERE UUID=?");
@@ -107,6 +135,12 @@ public class SQLGetter {
     }
 
 
+    /**
+     * Used to get the value of a player's collection
+     * @param uuid
+     * @param collection
+     * @return
+     */
     public int getCollection(UUID uuid, Collection collection) {
         try {
             PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("SELECT " + collection + " FROM collectiondata WHERE UUID=?");

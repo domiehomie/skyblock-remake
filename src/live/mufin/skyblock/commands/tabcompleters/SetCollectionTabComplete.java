@@ -13,6 +13,7 @@ public class SetCollectionTabComplete implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 
+        // Adds collections to list.
         List<String> collections = new ArrayList<String>();
         if(collections.isEmpty()) {
             for(SQLGetter.Collection collection : SQLGetter.Collection.values()) {
@@ -20,8 +21,8 @@ public class SetCollectionTabComplete implements TabCompleter {
             }
         }
 
+        // Sorts through list depending on characters that have been put in.
         List<String> results = new ArrayList<String>();
-
         if(args.length == 2) {
             for(String result : collections) {
                 if(result.toUpperCase().startsWith(args[1].toUpperCase()))

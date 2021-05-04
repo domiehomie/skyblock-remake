@@ -23,8 +23,10 @@ public class CreateItemsCommand implements CommandExecutor {
         if (label.equalsIgnoreCase("createitems")) {
             for (Material material : Material.values()) {
                 try {
+                    // Formats item names
                     String itemName = material.toString().toLowerCase().replace('_', ' ');
                     plugin.items.getConfig().set(material + ".name", "&f" + Utils.capitalizeWord(itemName));
+
                     plugin.items.getConfig().set(material + ".rarity", ItemManager.Rarity.COMMON.toString());
                     plugin.items.getConfig().set(material + ".material", material.toString());
                     sender.sendMessage(ChatColor.GREEN + material.toString() + " created.");

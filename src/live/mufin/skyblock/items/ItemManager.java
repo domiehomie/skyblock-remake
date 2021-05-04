@@ -28,6 +28,11 @@ public class ItemManager {
 		COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, SUPREME, SPECIAL,
 	}
 
+	/**
+	 * Turn Skyblock item id into the name of the item.
+	 * @param item
+	 * @return Name of the item
+	 */
 	public String getItemName(String item) {
 		if (plugin.items.getConfig().contains(item + ".name"))
 			return ChatColor.translateAlternateColorCodes('&', plugin.items.getConfig().getString(item + ".name"));
@@ -35,6 +40,11 @@ public class ItemManager {
 			return null;
 	}
 
+	/**
+	 * Turn Skyblock item id into lore of the item.
+	 * @param item
+	 * @return Lore of the item.
+	 */
 	public List<String> getItemLore(String item) {
 		List<String> lore = new ArrayList<String>();
 
@@ -167,6 +177,11 @@ public class ItemManager {
 		return lore;
 	}
 
+	/**
+	 * Turn Skyblck item id into Material
+	 * @param item
+	 * @return Material of the item.
+	 */
 	public Material getItemMaterial(String item) {
 		if (plugin.items.getConfig().contains(item + ".material")) {
 			try {
@@ -178,6 +193,11 @@ public class ItemManager {
 			return null;
 	}
 
+	/**
+	 * Gives you item based on skyblock item id
+	 * @param itemname
+	 * @return Item from sbid
+	 */
 	public ItemStack getItem(String itemname) {
 		if (plugin.items.getConfig().contains(itemname)) {
 			if(itemname.equals("AIR")) return null;

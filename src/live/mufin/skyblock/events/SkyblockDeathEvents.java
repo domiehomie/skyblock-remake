@@ -50,7 +50,12 @@ public class SkyblockDeathEvents implements Listener{
 		VOID,
 		OTHER
 	}
-	
+
+	/**
+	 * Use when you want a player to die.
+	 * @param p
+	 * @param cause
+	 */
 	public void setDeath(Player p, DeathCause cause) {
 		switch(cause) {
 		case FALL:

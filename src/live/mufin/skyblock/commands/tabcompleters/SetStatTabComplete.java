@@ -13,16 +13,17 @@ public class SetStatTabComplete implements TabCompleter {
 	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-		
+
+		// Adds stats to list.
 		List<String> stats = new ArrayList<String>();
 		if(stats.isEmpty()) {
 			for(Stat stat : Stat.values()) {
 				stats.add(stat.toString());
 			}
 		}
-		
+
+		// Sorts through list depending on characters that have been put in.
 		List<String> results = new ArrayList<String>();
-		
 		if(args.length == 2) {
 			for(String result : stats) {
 				if(result.toUpperCase().startsWith(args[1].toUpperCase()))

@@ -13,6 +13,8 @@ public class GotoTabComplete implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+
+        // Adds places to list.
         List<String> worlds = new ArrayList<String>();
         if(worlds.isEmpty()) {
             for(World world : Bukkit.getWorlds()) {
@@ -21,6 +23,7 @@ public class GotoTabComplete implements TabCompleter {
                 }
             }
         }
+        // Sorts through list depending on characters that have been put in.
         List<String> results = new ArrayList<String>();
         if(args.length == 1) {
             for(String result : worlds) {

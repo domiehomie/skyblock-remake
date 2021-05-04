@@ -37,6 +37,7 @@ public class MySQL {
         return (connection == null ? false : true);
     }
 
+
     public void connect() throws ClassNotFoundException, SQLException {
         if(!isConnected())
             connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=" + useSSL, username, password);

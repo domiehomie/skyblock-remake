@@ -14,12 +14,13 @@ public class SetLoggerTabComplete implements TabCompleter {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 
+		// Add features to list.
 		List<String> features = new ArrayList<String>();
 		if (features.isEmpty()) {
 			features.add("itemclicks");
 			features.add("itemdrops");
 		}
-
+		// Sorts through list depending on characters that have been put in.
 		List<String> results = new ArrayList<String>();
 		if (args.length == 1) {
 			for (String result : features) {
@@ -30,10 +31,12 @@ public class SetLoggerTabComplete implements TabCompleter {
 
 		}
 
+		// Add boolean values to list.
 		List<String> booleanvalues = new ArrayList<String>();
 		booleanvalues.add("true");
 		booleanvalues.add("false");
 
+		// Sorts through list depending on characters that have been put in.
 		if (args.length == 2) {
 			results.clear();
 			for (String result : booleanvalues) {

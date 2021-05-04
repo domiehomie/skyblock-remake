@@ -36,6 +36,10 @@ public class RegularScoreBoard implements Listener {
 
     }
 
+    /**
+     * Creates/updates scoreboard for a player
+     * @param player
+     */
     public void createBoard(Player player) {
         //time and date
         DateFormat dform = new SimpleDateFormat("dd/MM/yy");

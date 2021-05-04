@@ -1,6 +1,5 @@
 package live.mufin.skyblock.events;
 
-import net.DeeChael.ActionbarAPI.AAPI;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
@@ -26,6 +25,9 @@ public class JoinEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        /**
+         * Getting required variables
+         */
         Player player = event.getPlayer();
         PersistentDataContainer container = player.getPersistentDataContainer();
         NamespacedKey coinsKey = new NamespacedKey(plugin, "coins");
@@ -33,7 +35,9 @@ public class JoinEvent implements Listener {
         NamespacedKey flightDurationKey = new NamespacedKey(plugin, "flightduration");
         NamespacedKey buildModeKey = new NamespacedKey(plugin, "buildmode");
 
-
+        /**
+         * Sets data for new players
+         */
         if (!container.has(coinsKey, PersistentDataType.LONG))
             container.set(coinsKey, PersistentDataType.LONG, 0L);
         if (!container.has(buildModeKey, PersistentDataType.INTEGER))
@@ -63,6 +67,9 @@ public class JoinEvent implements Listener {
         if (!container.has(itemClicksKey, PersistentDataType.INTEGER))
             container.set(itemClicksKey, PersistentDataType.INTEGER, 0);
 
+        /**
+         * Sets flying true if you have flight duration.
+         */
         if (container.has(flightDurationKey, PersistentDataType.LONG)) {
             if (container.get(flightDurationKey, PersistentDataType.LONG) != 0) {
                 player.setAllowFlight(true);
@@ -70,6 +77,9 @@ public class JoinEvent implements Listener {
             }
         }
 
+        /**
+         * Sets current health and mana to correct values
+         */
         NamespacedKey maxHealthKey = new NamespacedKey(plugin, Stat.HEALTH.toString());
         NamespacedKey currentHealthKey = new NamespacedKey(plugin, "currentHealth");
         if(container.has(maxHealthKey, PersistentDataType.DOUBLE) && container.has(currentHealthKey, PersistentDataType.DOUBLE))
@@ -81,13 +91,16 @@ public class JoinEvent implements Listener {
             container.set(manaKey, PersistentDataType.DOUBLE, container.get(intelligenceKey, PersistentDataType.DOUBLE));
 
 
-        // GIVING SKYBLOCK MENU
+        /**
+         * Give skyblockmenu to player
+         */
         ItemStack skyblockmenu = plugin.item.getItem("SKYBLOCK_MENU");
         if (!(player.getInventory().contains(skyblockmenu)))
             player.getInventory().setItem(8, skyblockmenu);
 
         plugin.collections.createPlayer(player);
 
+        // Create scoreboard
         plugin.board.createBoard(player);
 
     }

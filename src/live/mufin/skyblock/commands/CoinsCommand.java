@@ -17,7 +17,7 @@ public class CoinsCommand implements CommandExecutor {
 
 	public CoinsCommand(Main plugin) {
 		this.plugin = plugin;
-		this.key = new NamespacedKey(plugin, "coins");
+		this.key = new NamespacedKey(plugin, "coins"); // init coins from playernbt
 	}
 	
 	
@@ -29,9 +29,14 @@ public class CoinsCommand implements CommandExecutor {
 			
 			Player player = (Player) sender;
 			if(args.length == 1) {
-				Player target = Bukkit.getPlayer(args[0]);
-				plugin.utils.sendFormattedMessage(player, "&7Coins for &a" + target.getDisplayName() + "&7: &6" + target.getPersistentDataContainer().get(key, PersistentDataType.LONG));
-			}else {
+				try{
+					Player target = Bukkit.getPlayer(args[0]);
+					plugin.utils.sendFormattedMessage(player, "&7Coins for &a" + target.getDisplayName() + "&7: &6" + target.getPersistentDataContainer().get(key, PersistentDataType.LONG));
+
+				} catch (NullPointerException e) { // checks if player is real
+					plugin.utils.sendFormattedMessage(player, "&cInvalid player.");
+				}
+				}else {
 			plugin.utils.sendFormattedMessage(player, "&7Coins for &a" + player.getDisplayName() + "&7: &6" + player.getPersistentDataContainer().get(key, PersistentDataType.LONG));
 			}
 		}

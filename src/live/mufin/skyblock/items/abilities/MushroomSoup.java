@@ -55,6 +55,9 @@ public class MushroomSoup implements Listener {
 		new BukkitRunnable() {
 			
 			@Override
+			/**
+			 * Runs every second to tick down flight duration for people that are on private islands.
+			 */
 			public void run() {
 				for (Player p : Bukkit.getServer().getOnlinePlayers()) {
 					try {

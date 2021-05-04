@@ -44,9 +44,6 @@ public class SkyblockMenu implements Listener {
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		if(event.getItem() == null || event.getItem().getItemMeta() == null) return;
-		
-		
-		
 		if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK
 				|| event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			NamespacedKey sbNameKey = new NamespacedKey(plugin, "sbname");
@@ -68,7 +65,11 @@ public class SkyblockMenu implements Listener {
 			event.setCancelled(true);
 		}
 	}
-	
+
+	/**
+	 * Used to open skyblockmenu for a player.
+	 * @param p
+	 */
 	public void createSkyblockMenu(Player p) {
 		Inventory inv = Bukkit.createInventory(p, 54, "SkyBlock Menu");
 		

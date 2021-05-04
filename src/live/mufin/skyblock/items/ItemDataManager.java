@@ -20,6 +20,9 @@ public class ItemDataManager {
 		this.saveDefaultConfig();
 	}
 
+	/**
+	 * Reloads the file
+	 */
 	public void reloadConfig() {
 		if (this.configFile == null)
 			this.configFile = new File(this.plugin.getDataFolder(), "items.yml");
@@ -33,6 +36,9 @@ public class ItemDataManager {
 		}
 	}
 
+	/**
+	 * @return the file
+	 */
 	public FileConfiguration getConfig() {
 		if (playerDataConfig == null)
 			this.reloadConfig();
@@ -40,6 +46,9 @@ public class ItemDataManager {
 		return this.playerDataConfig;
 	}
 
+	/**
+	 * Saves the config.
+	 */
 	public void saveConfig() {
 		if (this.playerDataConfig == null || this.configFile == null)
 			return;
@@ -51,6 +60,9 @@ public class ItemDataManager {
 		}
 	}
 
+	/**
+	 * Saves default config values
+	 */
 	public void saveDefaultConfig() {
 		if (this.configFile == null)
 			this.configFile = new File(this.plugin.getDataFolder(), "items.yml");

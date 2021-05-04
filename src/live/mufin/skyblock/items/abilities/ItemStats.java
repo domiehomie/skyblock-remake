@@ -18,6 +18,10 @@ public class ItemStats {
 		this.plugin = plugin;
 	}
 
+
+	/**
+	 * Runs every tick to make sure your stats are amplified correctly depending on the item you hold.
+	 */
 	public void runnable() {
 		new BukkitRunnable() {
 

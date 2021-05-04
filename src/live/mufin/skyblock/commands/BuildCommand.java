@@ -19,11 +19,12 @@ public class BuildCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(label.equalsIgnoreCase("build")) {
-            NamespacedKey key = new NamespacedKey(plugin, "buildmode");
+            NamespacedKey key = new NamespacedKey(plugin, "buildmode"); // init buildmode from playernbt
             if(!(sender instanceof Player)) return true;
             Player player = (Player) sender;
             if(player.getPersistentDataContainer().has(key, PersistentDataType.INTEGER)) {
-                boolean value = plugin.utils.intToBoolean(player.getPersistentDataContainer().get(key, PersistentDataType.INTEGER));
+                boolean value = plugin.utils.intToBoolean(player.getPersistentDataContainer().get(key, PersistentDataType.INTEGER)); // turns int from playernbt into boolean
+                // sets build mode depending on if it was on or off
                 if (value) {
                     player.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, 0);
                     plugin.utils.sendFormattedMessage(player, "&aEnabled &7build mode.");

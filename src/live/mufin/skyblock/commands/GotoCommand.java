@@ -23,7 +23,7 @@ public class GotoCommand implements CommandExecutor {
             Player player = (Player) sender;
 
             try {
-                World world = Bukkit.getWorld(args[0]);
+                World world = Bukkit.getWorld(args[0]); //getting world from string
                 player.teleport(world.getSpawnLocation());
                 plugin.utils.sendFormattedMessage(player, "&7Sent you to &a" + args[0] + "&7.");
                 plugin.board.createBoard(player);
