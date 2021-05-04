@@ -11,6 +11,8 @@ import org.bukkit.persistence.PersistentDataType;
 import live.mufin.skyblock.Main;
 import live.mufin.skyblock.playerdata.Stats.Stat;
 
+import javax.naming.Name;
+
 public class SetStatCommand implements CommandExecutor {
 
 	private Main plugin;

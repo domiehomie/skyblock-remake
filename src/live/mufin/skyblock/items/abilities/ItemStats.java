@@ -28,7 +28,7 @@ public class ItemStats {
 					if (p.getInventory().getItemInMainHand() == null
 							|| p.getInventory().getItemInMainHand().getItemMeta() == null) {
 						for (Stat stat : Stat.values()) {
-							NamespacedKey key = new NamespacedKey(plugin, stat.toString());
+							NamespacedKey key = new NamespacedKey(plugin, "item_" + stat.toString());
 							p.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, 0.0d);
 						}
 						return;
@@ -36,10 +36,10 @@ public class ItemStats {
 
 					ItemStack currentItem = p.getInventory().getItemInMainHand();
 					for (Stat stat : Stat.values()) {
+						NamespacedKey itemKey = new NamespacedKey(plugin, "item_" + stat.toString());
 						NamespacedKey key = new NamespacedKey(plugin, stat.toString());
-						if (currentItem.getItemMeta().getPersistentDataContainer().has(key,
-								PersistentDataType.DOUBLE)) {
-							p.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, currentItem.getItemMeta()
+						if (currentItem.getItemMeta().getPersistentDataContainer().has(key, PersistentDataType.DOUBLE)) {
+							p.getPersistentDataContainer().set(itemKey, PersistentDataType.DOUBLE, currentItem.getItemMeta()
 									.getPersistentDataContainer().get(key, PersistentDataType.DOUBLE));
 						}
 					}

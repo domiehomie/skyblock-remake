@@ -26,6 +26,7 @@ public class GotoCommand implements CommandExecutor {
                 World world = Bukkit.getWorld(args[0]);
                 player.teleport(world.getSpawnLocation());
                 plugin.utils.sendFormattedMessage(player, "&7Sent you to &a" + args[0] + "&7.");
+                plugin.board.createBoard(player);
             } catch (NullPointerException e) {
                 plugin.utils.sendFormattedMessage(player, "&c'" + args[0] + "' is an invalid world!");
             }

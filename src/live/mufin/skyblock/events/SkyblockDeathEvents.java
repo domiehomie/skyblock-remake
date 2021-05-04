@@ -81,7 +81,9 @@ public class SkyblockDeathEvents implements Listener{
 		if (!(event.getEntityType() == EntityType.PLAYER)) return;
 		if(!(event.getCause() == DamageCause.FALL)) return;
 		Player p = (Player) event.getEntity();
-		if(p.getPersistentDataContainer().get(deathKey, PersistentDataType.INTEGER) == 0) return;
+		if(p.getPersistentDataContainer().has(deathKey, PersistentDataType.INTEGER)) {
+			if (p.getPersistentDataContainer().get(deathKey, PersistentDataType.INTEGER) == 0) return;
+		}
 		event.setCancelled(true);
 		p.getPersistentDataContainer().set(deathKey, PersistentDataType.INTEGER, 0);
 	}

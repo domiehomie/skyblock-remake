@@ -40,7 +40,6 @@ public class ItemManager {
 
 		for (Stat stat : Stat.values()) {
 			if (plugin.items.getConfig().contains(item + ".stats." + stat)) {
-				Bukkit.getLogger().info(stat.toString());
 				
 				switch(stat) {
 				case DAMAGE:

@@ -54,12 +54,11 @@ public class Main extends JavaPlugin {
 		try{
 			collectionsDatabase.connect();
 		} catch(ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			this.getLogger().severe(ChatColor.DARK_RED + "[SB] Database failed to connect.");
+			this.getLogger().severe("[SB] Database failed to connect.");
 		}
 
 		if(collectionsDatabase.isConnected()) {
-			Bukkit.getLogger().info(ChatColor.GREEN + "[SB] Database connected.");
+			Bukkit.getLogger().info("[SB] Database connected.");
 			collections.createTable();
 		}
 
@@ -104,6 +103,7 @@ public class Main extends JavaPlugin {
 		// Initializing BukkitRunnables
 		soup.runnable();
 		itemStats.runnable();
+		stats.runnable();
 	}
 
 	public void onDisable() {
