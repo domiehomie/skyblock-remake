@@ -1,6 +1,6 @@
 package live.mufin.skyblock.commands.tabcompleters;
 
-import live.mufin.skyblock.playerdata.SQLGetter;
+import live.mufin.skyblock.playerdata.SQLCollectionGetter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -16,7 +16,7 @@ public class SetCollectionTabComplete implements TabCompleter {
         // Adds collections to list.
         List<String> collections = new ArrayList<String>();
         if(collections.isEmpty()) {
-            for(SQLGetter.Collection collection : SQLGetter.Collection.values()) {
+            for(SQLCollectionGetter.Collection collection : SQLCollectionGetter.Collection.values()) {
                 collections.add(collection.toString());
             }
         }

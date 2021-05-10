@@ -1,7 +1,7 @@
 package live.mufin.skyblock.commands;
 
 import live.mufin.skyblock.Main;
-import live.mufin.skyblock.playerdata.SQLGetter;
+import live.mufin.skyblock.playerdata.SQLCollectionGetter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +24,7 @@ public class SetCollectionCommand implements CommandExecutor {
 
                 try {
                     Player target = Bukkit.getPlayer(args[0]);
-                    SQLGetter.Collection collection = SQLGetter.Collection.valueOf(args[1]);
+                    SQLCollectionGetter.Collection collection = SQLCollectionGetter.Collection.valueOf(args[1]);
                     int value =  Integer.parseInt(args[2]);
 
                     plugin.collections.setCollection(target.getUniqueId(), collection, value);

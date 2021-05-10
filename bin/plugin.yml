@@ -62,3 +62,9 @@ commands:
   createitems:
     description: Creates all vanilla items into Skyblock items for you.
     usage: /<command>
+  createprofile:
+    description: Creates a new profile.
+    usage: /<command>
+  deleteprofile:
+    description: Deletes a profile.
+    usage: /<command> <profile>

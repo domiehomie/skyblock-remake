@@ -1,6 +1,7 @@
 package live.mufin.skyblock.commands.tabcompleters;
 
 import live.mufin.skyblock.playerdata.SQLCollectionGetter;
+import live.mufin.skyblock.playerdata.SQLProfileGetter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -8,25 +9,24 @@ import org.bukkit.command.TabCompleter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollectionTabComplete implements TabCompleter {
+public class DeleteProfileTabComplete implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 
-        List<String> collections = new ArrayList<String>();
         // Adds collections to list.
-        if(collections.isEmpty()) {
-            for(SQLCollectionGetter.Collection collection : SQLCollectionGetter.Collection.values()) {
-                collections.add(collection.toString());
+        List<String> profiles = new ArrayList<String>();
+        if(profiles.isEmpty()) {
+            for(SQLProfileGetter.Profile profile : SQLProfileGetter.Profile.values()) {
+                profiles.add(profile.toString());
             }
         }
 
-        List<String> results = new ArrayList<String>();
-
         // Sorts through list depending on characters that have been put in.
-        if(args.length == 2) {
-            for(String result : collections) {
-                if(result.toUpperCase().startsWith(args[1].toUpperCase()))
+        List<String> results = new ArrayList<String>();
+        if(args.length == 1) {
+            for(String result : profiles) {
+                if(result.toUpperCase().startsWith(args[0].toUpperCase()))
                     results.add(result);
             }
             return results;
@@ -35,4 +35,5 @@ public class CollectionTabComplete implements TabCompleter {
 
         return null;
     }
+
 }

@@ -4,8 +4,8 @@ import live.mufin.skyblock.commands.tabcompleters.*;
 import live.mufin.skyblock.playerdata.MySQL;
 import live.mufin.skyblock.commands.*;
 import live.mufin.skyblock.events.*;
-import live.mufin.skyblock.playerdata.SQLGetter;
-import org.bukkit.Bukkit;
+import live.mufin.skyblock.playerdata.SQLCollectionGetter;
+import live.mufin.skyblock.playerdata.SQLProfileGetter;
 import org.bukkit.ChatColor;
 import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,15 +24,15 @@ import java.sql.SQLException;
 public class Main extends JavaPlugin {
 
 	// Public and private variables
-	public SQLGetter collections;
+	public SQLCollectionGetter collections;
 	public Utils utils;
 	public ItemDataManager items;
 	public RegularScoreBoard board;
 	public ItemManager item;
 	public Stats stats;
 	public FileConfiguration config = this.getConfig();
-	public MySQL collectionsDatabase;
-
+	public MySQL database;
+	public SQLProfileGetter profiles;
 	private MushroomSoup soup;
 	private ItemStats itemStats;
 	
@@ -40,8 +40,8 @@ public class Main extends JavaPlugin {
 		this.saveDefaultConfig(); // Initialize config
 
 		// Variables that need to be used in this or other classes.
-		this.collections = new SQLGetter(this);
-		this.collectionsDatabase = new MySQL(this);
+		this.collections = new SQLCollectionGetter(this);
+		this.database = new MySQL(this);
 		this.utils = new Utils(this);
 		this.board = new RegularScoreBoard(this);
 		this.items = new ItemDataManager(this);
@@ -49,21 +49,26 @@ public class Main extends JavaPlugin {
 		this.soup = new MushroomSoup(this);
 		this.stats = new Stats(this);
 		this.itemStats = new ItemStats(this);
+		this.profiles = new SQLProfileGetter(this);
 
 		// Connect to MySQL
 		try{
-			collectionsDatabase.connect();
+			database.connect();
 		} catch(ClassNotFoundException | SQLException e) {
-			this.getLogger().severe("[SB] Database failed to connect.");
+			this.getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&aSB&8] &cFAILED &7Database connection."));
 		}
 
-		if(collectionsDatabase.isConnected()) {
-			Bukkit.getLogger().info("[SB] Database connected.");
+		if(database.isConnected()) {
+			this.getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&aSB&8] &aSUCESS &7Database connection."));
 			collections.createTable();
+			profiles.createTable();
 		}
 
 		// Creating worlds
 		this.getServer().createWorld(WorldCreator.name("hub"));
+		this.getServer().createWorld(WorldCreator.name("spawn"));
+		this.getServer().createWorld(WorldCreator.name("islandtemplate"));
+
 
 		// Initializing CommandExecutors
 		this.getCommand("skyblock").setExecutor(new SkyblockCommand(this));
@@ -82,6 +87,8 @@ public class Main extends JavaPlugin {
 		this.getCommand("collection").setExecutor(new CollectionCommand(this));
 		this.getCommand("setcollection").setExecutor(new SetCollectionCommand(this));
 		this.getCommand("createitems").setExecutor(new CreateItemsCommand(this));
+		this.getCommand("createprofile").setExecutor(new CreateProfileCommand(this));
+		this.getCommand("deleteprofile").setExecutor(new DeleteProfileCommand(this));
 
 		// Initializing TabCompleters
 		this.getCommand("setlogger").setTabCompleter(new SetLoggerTabComplete());
@@ -90,6 +97,7 @@ public class Main extends JavaPlugin {
 		this.getCommand("goto").setTabCompleter(new GotoTabComplete());
 		this.getCommand("collection").setTabCompleter(new CollectionTabComplete());
 		this.getCommand("setcollection").setTabCompleter(new SetCollectionTabComplete());
+		this.getCommand("deleteprofile").setTabCompleter(new DeleteProfileTabComplete());
 
 		// Initializing events
 		this.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
@@ -100,8 +108,11 @@ public class Main extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new MushroomSoup(this), this);
 		this.getServer().getPluginManager().registerEvents(new SkyblockMenu(this), this);
 		this.getServer().getPluginManager().registerEvents(new BuildModeEvents(this), this);
-		this.getServer().getPluginManager().registerEvents(new EnterPortalEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new EnterPortalEvent(this), this);
 		this.getServer().getPluginManager().registerEvents(new ItemPickupEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new ItemColourEvent(this), this);
+		this.getServer().getPluginManager().registerEvents(new ProfileSignEvents(), this);
+
 
 		// Initializing BukkitRunnables
 		soup.runnable();
@@ -111,6 +122,6 @@ public class Main extends JavaPlugin {
 
 	public void onDisable() {
 		// Disconnect from SQL server
-		collectionsDatabase.disconnect();
+		database.disconnect();
 	}
 }

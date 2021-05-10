@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class SQLGetter {
+public class SQLCollectionGetter {
 
 
     public enum Collection {
@@ -30,7 +30,7 @@ public class SQLGetter {
 
     private Main plugin;
 
-    public SQLGetter(Main plugin) {
+    public SQLCollectionGetter(Main plugin) {
         this.plugin = plugin;
     }
 
@@ -54,7 +54,7 @@ public class SQLGetter {
     public void createTable() {
         PreparedStatement ps;
         try {
-            ps = plugin.collectionsDatabase.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS collectiondata " + this.getCollections());
+            ps = plugin.database.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS collectiondata " + this.getCollections());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,7 +69,7 @@ public class SQLGetter {
         try {
             UUID uuid = player.getUniqueId();
             if (!exists(uuid)) {
-                PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("INSERT IGNORE INTO collectiondata (UUID) VALUES (?)");
+                PreparedStatement ps = plugin.database.getConnection().prepareStatement("INSERT IGNORE INTO collectiondata (UUID) VALUES (?)");
                 ps.setString(1, uuid.toString());
                 ps.executeUpdate();
                 return;
@@ -86,7 +86,7 @@ public class SQLGetter {
      */
     public boolean exists(UUID uuid) {
         try {
-            PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("SELECT * FROM collectiondata WHERE UUID=?");
+            PreparedStatement ps = plugin.database.getConnection().prepareStatement("SELECT * FROM collectiondata WHERE UUID=?");
             ps.setString(1, uuid.toString());
 
             ResultSet results = ps.executeQuery();
@@ -108,7 +108,7 @@ public class SQLGetter {
      */
     public void addCollection(UUID uuid, Collection collection, int amount) {
         try {
-            PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("UPDATE collectiondata SET " + collection + "=? WHERE UUID=?");
+            PreparedStatement ps = plugin.database.getConnection().prepareStatement("UPDATE collectiondata SET " + collection + "=? WHERE UUID=?");
             ps.setInt(1, this.getCollection(uuid, collection));
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -125,7 +125,7 @@ public class SQLGetter {
      */
     public void setCollection(UUID uuid, Collection collection, int amount) {
         try {
-            PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("UPDATE collectiondata SET " + collection + "=? WHERE UUID=?");
+            PreparedStatement ps = plugin.database.getConnection().prepareStatement("UPDATE collectiondata SET " + collection + "=? WHERE UUID=?");
             ps.setInt(1, amount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -143,7 +143,7 @@ public class SQLGetter {
      */
     public int getCollection(UUID uuid, Collection collection) {
         try {
-            PreparedStatement ps = plugin.collectionsDatabase.getConnection().prepareStatement("SELECT " + collection + " FROM collectiondata WHERE UUID=?");
+            PreparedStatement ps = plugin.database.getConnection().prepareStatement("SELECT " + collection + " FROM collectiondata WHERE UUID=?");
             ps.setString(1, uuid.toString());
             ResultSet results = ps.executeQuery();
             int amount = 0;

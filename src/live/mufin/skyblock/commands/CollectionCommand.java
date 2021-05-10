@@ -1,7 +1,7 @@
 package live.mufin.skyblock.commands;
 
 import live.mufin.skyblock.Main;
-import live.mufin.skyblock.playerdata.SQLGetter;
+import live.mufin.skyblock.playerdata.SQLCollectionGetter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +25,7 @@ public class CollectionCommand implements CommandExecutor {
                 try {
                     // getting all values from strings (saved by try and catch's)
                     Player target = Bukkit.getPlayer(args[0]);
-                    SQLGetter.Collection collection = SQLGetter.Collection.valueOf(args[1]);
+                    SQLCollectionGetter.Collection collection = SQLCollectionGetter.Collection.valueOf(args[1]);
                     int value = plugin.collections.getCollection(target.getUniqueId(), collection);
 
                     plugin.utils.sendFormattedMessage(player, "&7Collection &a" + collection + " &7of player &a" + target.getName() + "&7 is &a" + value + "&7.");

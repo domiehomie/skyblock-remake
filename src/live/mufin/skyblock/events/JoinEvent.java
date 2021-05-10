@@ -78,11 +78,11 @@ public class JoinEvent implements Listener {
         }
 
         /**
-         * Sets current health and mana to correct values
+         * Sets current health to correct value
          */
         NamespacedKey maxHealthKey = new NamespacedKey(plugin, Stat.HEALTH.toString());
         NamespacedKey currentHealthKey = new NamespacedKey(plugin, "currentHealth");
-        if(container.has(maxHealthKey, PersistentDataType.DOUBLE) && container.has(currentHealthKey, PersistentDataType.DOUBLE))
+        if(container.has(maxHealthKey, PersistentDataType.DOUBLE))
             container.set(currentHealthKey, PersistentDataType.DOUBLE, container.get(maxHealthKey, PersistentDataType.DOUBLE));
 
         NamespacedKey manaKey = new NamespacedKey(plugin, "mana");
@@ -99,6 +99,7 @@ public class JoinEvent implements Listener {
             player.getInventory().setItem(8, skyblockmenu);
 
         plugin.collections.createPlayer(player);
+        plugin.profiles.createPlayer(player);
 
         // Create scoreboard
         plugin.board.createBoard(player);
