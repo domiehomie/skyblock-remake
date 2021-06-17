@@ -89,6 +89,8 @@ public class Main extends JavaPlugin {
 		this.getCommand("createitems").setExecutor(new CreateItemsCommand(this));
 		this.getCommand("createprofile").setExecutor(new CreateProfileCommand(this));
 		this.getCommand("deleteprofile").setExecutor(new DeleteProfileCommand(this));
+		this.getCommand("selectprofile").setExecutor(new SelectProfileCommand(this));
+		this.getCommand("island").setExecutor(new IslandCommand(this));
 
 		// Initializing TabCompleters
 		this.getCommand("setlogger").setTabCompleter(new SetLoggerTabComplete());
@@ -97,7 +99,8 @@ public class Main extends JavaPlugin {
 		this.getCommand("goto").setTabCompleter(new GotoTabComplete());
 		this.getCommand("collection").setTabCompleter(new CollectionTabComplete());
 		this.getCommand("setcollection").setTabCompleter(new SetCollectionTabComplete());
-		this.getCommand("deleteprofile").setTabCompleter(new DeleteProfileTabComplete());
+		this.getCommand("deleteprofile").setTabCompleter(new SeleteProfileTabComplete());
+		this.getCommand("selectprofile").setTabCompleter(new SeleteProfileTabComplete());
 
 		// Initializing events
 		this.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);

@@ -9,7 +9,7 @@ import org.bukkit.command.TabCompleter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteProfileTabComplete implements TabCompleter {
+public class SeleteProfileTabComplete implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {

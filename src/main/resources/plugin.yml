@@ -68,3 +68,10 @@ commands:
   deleteprofile:
     description: Deletes a profile.
     usage: /<command> <profile>
+  selectprofile:
+    description: Lets you select a profile.
+    usage: /<command> <profile>
+  island:
+    description: Sends you to your island.
+    usage: /<command>
+    aliases: is

@@ -63,7 +63,7 @@ public class MushroomSoup implements Listener {
 					try {
 						long time = p.getPersistentDataContainer().get(key, PersistentDataType.LONG);
 						if (time != 0) {
-							if (p.getWorld().getName().equals("world")) {
+							if (p.getWorld().getName().startsWith("island_")) {
 								p.getPersistentDataContainer().set(key, PersistentDataType.LONG, time - 1);
 								plugin.board.createBoard(p);
 								if(time < 100) {

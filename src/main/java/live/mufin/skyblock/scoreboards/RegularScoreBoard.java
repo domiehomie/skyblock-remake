@@ -72,7 +72,7 @@ public class RegularScoreBoard implements Listener {
         score6.setScore(7);
 
         if (player.getPersistentDataContainer().get(flightKey, PersistentDataType.LONG) != 0L) {
-            if (player.getWorld().getName().equalsIgnoreCase("world")) {
+            if (player.getWorld().getName().startsWith("island_")) {
                 long time = player.getPersistentDataContainer().get(flightKey, PersistentDataType.LONG);
 
                 Score score7 = obj.getScore("Flight Duration: " + ChatColor.GREEN + plugin.utils.formatSeconds(time));
